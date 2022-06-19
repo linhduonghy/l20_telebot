@@ -17,25 +17,22 @@ app = Flask(__name__)
 
 telebot = TeleBot()
 
-@app.route("/")
-def hello_world():
-    return "<p>Hello, World</p>"
 
 @app.route("/tele-webhook", methods=['POST'])
-def tele_webhook():    
+def tele_webhook():
 
     req = request.get_json()
-    
+
     print(req)
     try:
-        msg_key = None  
+        msg_key = None
         if 'message' in req:
             msg_key = 'message'
         elif 'edited_message' in req:
             msg_key = 'edited_message'
 
         if msg_key is not None:
-            
+
             if 'entities' not in req[msg_key]:
                 return ""
 
@@ -56,21 +53,22 @@ def tele_webhook():
                         first_name = req[msg_key]['from']['first_name']
                         last_name = req[msg_key]['from']['last_name']
                         username = req[msg_key]['from']['username']
-                        
+
                         # add user to local cache
-                        user = TeleUser(user_id, chat_id, first_name, last_name, username)
+                        user = TeleUser(user_id, chat_id,
+                                        first_name, last_name, username)
                         user_cache[user_id] = user
                         # send message subscribe successfully
-                        telebot.sendMessage(user, None, "Đăng ký nhận tin nhắn thành công !")   
-                    else:
-                        telebot.sendMessage(None, chat_id, "Đã đăng ký rồi mà ?")   
+                        telebot.sendMessage(user, None,
+                                            "Xin cảm ơn bạn {} đã đăng ký nhận tin nhắn từ L20Bot !".format(first_name + ' ' + last_name))
+                    # else:
+                    #     telebot.sendMessage(None, chat_id, "Bạn đã đăng ký rồi mà ?")
 
                 elif command == "/stop":
-                    print('stop', user_id)
-                    print(user_cache.keys())
+                    print('stop', user_id)                    
                     if user_id in user_cache:
-                        print('stop receive message!')
-                        telebot.sendMessage(user=None, chat_id=chat_id, text="Đã hủy nhận tin nhắn !")
+                        telebot.sendMessage(
+                            user=None, chat_id=chat_id, text="Đã hủy nhận tin nhắn !")
                         # remove from local cache
                         user_cache.pop(user_id)
 
@@ -80,7 +78,7 @@ def tele_webhook():
 
     return "TELE Webhook"
 
+
 if __name__ == "__main__":
 
     app.run()
-    

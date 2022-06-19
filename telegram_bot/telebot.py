@@ -1,10 +1,10 @@
 import os
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import httpx
 from model.user_model import TeleUser
 from cache.local_cache import user_cache
 
-load_dotenv()
+# load_dotenv()
 
 token = os.getenv('TELEBOT_TOKEN')
 # chat_id = os.getenv('CHAT_ID')

@@ -3,18 +3,20 @@ from apscheduler.triggers.cron import CronTrigger
 
 from telegram_bot.telebot import TeleBot
 
+from datetime import datetime
+
 my_timezone = "Asia/Ho_Chi_Minh"
 
 def my_job(telebot: TeleBot):
-    
+    print(datetime.now())
     telebot.sendMessageToAllUser()
 
 def schedule():
     
     scheduler = BackgroundScheduler()
 
-    cron_trigger_1 = CronTrigger.from_crontab(expr="51 * * * *", timezone='UTC')
-    cron_trigger_2 = CronTrigger.from_crontab(expr="52 * * * *", timezone='UTC')
+    cron_trigger_1 = CronTrigger.from_crontab(expr="52 * * * *", timezone='UTC')
+    cron_trigger_2 = CronTrigger.from_crontab(expr="53 * * * *", timezone='UTC')
     
     job1 = scheduler.add_job(func=my_job, trigger=cron_trigger_1, args=[TeleBot()], name="job_1")
     job2 = scheduler.add_job(func=my_job, trigger=cron_trigger_2, args=[TeleBot()], name="job_2")

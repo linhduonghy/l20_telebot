@@ -8,10 +8,10 @@ from telegram_bot.telebot import TeleBot
 import my_scheduler
 import atexit
 
+app = Flask(__name__)
+
 scheduler = my_scheduler.schedule()
 atexit.register(lambda: scheduler.shutdown())
-
-app = Flask(__name__)
 
 telebot = TeleBot()
 
@@ -81,5 +81,5 @@ def tele_webhook():
 
 if __name__ == "__main__":
 
-    pass
-    # app.run()
+    
+    app.run()

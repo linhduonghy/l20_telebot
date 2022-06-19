@@ -5,6 +5,12 @@ from cache.local_cache import user_cache
 from model.user_model import TeleUser
 from telegram_bot.telebot import TeleBot
 
+import my_scheduler
+import atexit
+
+scheduler = my_scheduler.schedule()
+atexit.register(lambda: scheduler.shutdown())
+
 app = Flask(__name__)
 
 telebot = TeleBot()

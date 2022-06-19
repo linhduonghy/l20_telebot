@@ -1,22 +1,13 @@
 from flask import Flask, request
 import traceback
-# from dotenv import load_dotenv
 
 from cache.local_cache import user_cache
 from model.user_model import TeleUser
 from telegram_bot.telebot import TeleBot
-import my_scheduler
-import atexit
-
-# load_dotenv()
-
-scheduler = my_scheduler.schedule()
-atexit.register(lambda: scheduler.shutdown())
 
 app = Flask(__name__)
 
 telebot = TeleBot()
-
 
 @app.route("/tele-webhook", methods=['POST'])
 def tele_webhook():
@@ -65,8 +56,10 @@ def tele_webhook():
                     #     telebot.sendMessage(None, chat_id, "Bạn đã đăng ký rồi mà ?")
 
                 elif command == "/stop":
-                    print('stop', user_id)                    
+                    print('stop', user_id)
+                    print(user_cache.keys())
                     if user_id in user_cache:
+                        print('stop receive message!')
                         telebot.sendMessage(
                             user=None, chat_id=chat_id, text="Đã hủy nhận tin nhắn !")
                         # remove from local cache
@@ -76,9 +69,10 @@ def tele_webhook():
         print("Unexpected error: ")
         traceback.print_exc()
 
-    return "TELE Webhook"
+    return ""
 
 
 if __name__ == "__main__":
 
-    app.run()
+    pass
+    # app.run()

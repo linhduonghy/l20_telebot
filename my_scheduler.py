@@ -8,14 +8,13 @@ from datetime import datetime
 my_timezone = "Asia/Ho_Chi_Minh"
 
 def my_job(telebot: TeleBot):
-    print(datetime.now())
     telebot.sendMessageToAllUser()
 
 def schedule():
     
     scheduler = BackgroundScheduler()
 
-    cron_trigger_test = CronTrigger.from_crontab(expr="24 23 * * *", timezone=my_timezone)
+    cron_trigger_test = CronTrigger.from_crontab(expr="32 23 * * *", timezone=my_timezone)
     cron_trigger_1 = CronTrigger.from_crontab(expr="0 8 * * *", timezone=my_timezone)
     cron_trigger_2 = CronTrigger.from_crontab(expr="20 17 * * *", timezone=my_timezone)
     

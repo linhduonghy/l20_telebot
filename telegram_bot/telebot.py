@@ -12,7 +12,7 @@ class TeleBot():
 
     def sendMessageToAllUser(self):                 
 
-        print('user cache:', user_cache.keys())
+        print('list user cache:', user_cache.keys())
         for user_id in user_cache:
 
             user = user_cache[user_id]

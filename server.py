@@ -40,6 +40,7 @@ def tele_webhook():
 
                 if command == '/start':
                     print('start', user_id)
+                    print('user cache:', user_cache.keys())
                     if user_id not in user_cache:
                         first_name = req[msg_key]['from']['first_name']
                         last_name = req[msg_key]['from']['last_name']
@@ -57,7 +58,7 @@ def tele_webhook():
 
                 elif command == "/stop":
                     print('stop', user_id)
-                    print(user_cache.keys())
+                    print('user cache:', user_cache.keys())
                     if user_id in user_cache:
                         print('stop receive message!')
                         telebot.sendMessage(

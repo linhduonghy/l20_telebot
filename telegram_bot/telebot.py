@@ -21,7 +21,6 @@ class TeleBot():
             user = user_cache[user_id]
             # print(user)
             url = self.raw_url.format(token=token, chat_id=user.chat_id, text="Hello from L20")
-
             httpx.get(url)
                
 
@@ -31,7 +30,6 @@ class TeleBot():
             chat_id = user.chat_id
         
         url = self.raw_url.format(token=token, chat_id=chat_id, text=text)
-
         httpx.get(url)
         
 if __name__ == '__main__':

@@ -50,6 +50,7 @@ def tele_webhook():
                 chat_id = req[msg_key]['chat']['id']
 
                 if command == '/start':
+                    print('start')
                     if user_id not in user_cache:
                         first_name = req[msg_key]['from']['first_name']
                         last_name = req[msg_key]['from']['last_name']
@@ -64,7 +65,9 @@ def tele_webhook():
                         telebot.sendMessage(None, chat_id, "Đã đăng ký rồi mà ?")   
 
                 elif command == "/stop":
+                    print('stop')
                     if user_id in user_cache:
+                        print('stop receive message!')
                         telebot.sendMessage(user=None, chat_id=chat_id, text="Đã hủy nhận tin nhắn !")
                         # remove from local cache
                         user_cache.pop(user_id)

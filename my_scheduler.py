@@ -13,11 +13,11 @@ def schedule():
     
     scheduler = BackgroundScheduler()
 
-    cron_trigger_1 = CronTrigger.from_crontab(expr="23 22 * * *", timezone=my_timezone)
-    # cron_trigger_2 = CronTrigger.from_crontab(expr="0/1 * * * *", timezone=my_timezone)
+    cron_trigger_1 = CronTrigger.from_crontab(expr="26 22 * * *", timezone=my_timezone)
+    cron_trigger_2 = CronTrigger.from_crontab(expr="27 22 * * *", timezone=my_timezone)
     
     job1 = scheduler.add_job(func=my_job, trigger=cron_trigger_1, args=[TeleBot()], name="job_1")
-    # job2 = scheduler.add_job(func=my_job, trigger=cron_trigger_2, args=[TeleBot()], name="job_2")
+    job2 = scheduler.add_job(func=my_job, trigger=cron_trigger_2, args=[TeleBot()], name="job_2")
 
     scheduler.start()
     

@@ -14,7 +14,7 @@ def schedule():
     
     scheduler = BackgroundScheduler()
 
-    cron_trigger_test = CronTrigger.from_crontab(expr="46 23 * * *", timezone=my_timezone)
+    cron_trigger_test = CronTrigger.from_crontab(expr="50 23 * * *", timezone=my_timezone)
     cron_trigger_1 = CronTrigger.from_crontab(expr="0 8 * * *", timezone=my_timezone)
     cron_trigger_2 = CronTrigger.from_crontab(expr="20 17 * * *", timezone=my_timezone)
     

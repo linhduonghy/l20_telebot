@@ -50,7 +50,7 @@ def tele_webhook():
                     if user_id not in user_cache:
                         first_name = req[msg_key]['from']['first_name']
                         last_name = req[msg_key]['from']['last_name']
-                        username = req[msg_key]['from']['username']
+                        username = req[msg_key]['from']['username'] if 'username' in req[msg_key]['from'] else ''
 
                         # add user to local cache
                         user = TeleUser(user_id, chat_id,

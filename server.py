@@ -15,6 +15,7 @@ atexit.register(lambda: scheduler.shutdown())
 
 telebot = TeleBot()
 
+
 @app.route("/tele-webhook", methods=['POST'])
 def tele_webhook():
 
@@ -34,24 +35,26 @@ def tele_webhook():
                 return ""
 
             entity = req[msg_key]['entities'][0]['type']
-            user_id = req[msg_key]['from']['id']
 
-            if entity == 'bot_command':
+            try:
+                user_id = req[msg_key]['from']['id']
+                chat_id = req[msg_key]['chat']['id']
+                first_name = req[msg_key]['from']['first_name']
+                last_name = req[msg_key]['from']['last_name']
+                username = req[msg_key]['from']['username']
                 text = str(req[msg_key]['text'])
                 offset = int(req[msg_key]['entities'][0]['offset'])
                 length = int(req[msg_key]['entities'][0]['length'])
                 command = text[offset:offset+length]
+            except:
+                print("Unexpected error: ")
+                traceback.print_exc()
 
-                chat_id = req[msg_key]['chat']['id']
+            if entity == 'bot_command':
 
                 if command == '/start':
                     print('start', user_id)
-                    print('user cache:', user_cache.keys())
                     if user_id not in user_cache:
-                        first_name = req[msg_key]['from']['first_name']
-                        last_name = req[msg_key]['from']['last_name']
-                        username = req[msg_key]['from']['username'] if 'username' in req[msg_key]['from'] else ''
-
                         # add user to local cache
                         user = TeleUser(user_id, chat_id,
                                         first_name, last_name, username)
@@ -81,5 +84,4 @@ def tele_webhook():
 
 if __name__ == "__main__":
 
-    
     app.run()
